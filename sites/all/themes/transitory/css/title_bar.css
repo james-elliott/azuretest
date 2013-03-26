@@ -1,0 +1,76 @@
+
+/**
+ * @file
+ * CSS for the title bar
+ */
+
+#title-bar {
+  color: #333;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background: url('../images/header-after-bg.png') repeat-x left top #fff;
+}
+
+#title-bar a {
+  color: #666;
+}
+
+#title-bar h1 {
+  display: inline-block;
+  font-size: 28px;
+  font-weight: normal;
+  margin: 0;
+}
+
+#title-bar h1 a {
+  color: #333;
+}
+
+#title-bar .region {
+  margin-top: 7px;
+  line-height: 21px;
+}
+
+#title-bar .region a {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.action-links {
+  font-size: 18px;
+}
+
+.action-links a[href*="add"] {
+  position: relative;
+  padding-left: 16px;
+}
+
+.action-links a[href*="add"]:before {
+  content: '';
+  background: rgba(171,0,0,1);
+  height: 4px;
+  width: 12px;
+  position: absolute;
+  left: 0px;
+  top: 11px;
+  border-right-color: #ccc;
+}
+
+.action-links a[href*="add"]:after {
+  content: '';
+  background: rgba(171,0,0,1);
+  height: 12px;
+  width: 4px;
+  position: absolute;
+  left: 4px;
+  top: 7px;
+  border-right-color: #ccc;
+}
+
+.action-links aa[href*='add']:hover:before {
+  background: rgba(131,0,0,1);
+}
+
+.action-links a[href*="add"]:hover:after {
+  background: rgba(131,0,0,1);
+}

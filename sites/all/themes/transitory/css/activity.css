@@ -1,0 +1,466 @@
+
+/**
+ * @file
+ * CSS for notifications
+ */
+
+ 
+#block-northstar-activity .button.icon {
+  background: url('../images/notifications.png') no-repeat 4px 6px transparent;
+  color: #454545;
+  padding-left:21px;
+  padding-right: 6px;
+  min-height: 21px;
+  display: block;
+}
+
+#block-northstar-activity .in-progress .button.icon {
+  background: none;
+}
+
+#block-northstar-activity .in-progress .button.icon .spinner {
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-duration: 1.2s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -moz-animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 1.2s;
+  -moz-animation-name: spin;
+  -moz-animation-delay: 0s;
+  -webkit-animation-name: spin;
+  -webkit-animation-delay: 0s;
+  animation-name: spin;
+  animation-delay: 0s;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: 0;
+  top: 1px;
+  background: url('../images/spinner-small.png') no-repeat center center transparent;
+}
+
+.no-headers .block .button-wrapper h2 {
+  display: block;
+}
+
+.popup  h2.title {
+  font-size: 21px;
+  font-family: Segoe UI Semibold;
+  margin: 0;
+  color: #454545;
+  position: absolute;
+  background: #fff;
+}
+
+.popup,
+.context-menu {
+  font-size: 13px;
+  background: #fff;
+  position: fixed;
+  top: 47px;
+  right: 40px;
+  color: #454545;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 4px 12px;
+  box-shadow: 0 0 4px 1px rgba(0,0,0,.1);
+  opacity: 0;
+  -webkit-transition: opacity .25s;
+  -moz-transition: opacity .25s;
+  -ms-transition: opacity .25s;
+  transition: opacity .25s;
+  min-width: 200px;
+  pointer-events: none;
+  min-width: 420px;
+  bottom: 37px;
+}
+
+.context-menu {
+  z-index: 200;
+}
+
+.button {
+  position: relative;
+}
+
+.popup:before {
+  border-bottom-color: #fff;
+  content: '';
+  border-bottom-width: 9px;
+  border-bottom-style: solid;
+  border-right: 9px solid transparent;
+  border-left: 9px solid transparent;
+  position: absolute;
+  bottom: 100%;
+  z-index: 2;
+  right: 147px;
+}
+
+.popup:after {
+  border-bottom-color: #999;
+  content: '';
+  border-bottom-width: 10px;
+  border-bottom-style: solid;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  position: absolute;
+  bottom: 100%;
+  z-index: 1;
+  right: 146px;
+}
+
+.open .popup,
+.context .context-menu {
+  display: block;
+  opacity: 1;
+  -webkit-transition: opacity .25s;
+  -moz-transition: opacity .25s;
+  -ms-transition: opacity .25s;
+  transition: opacity .25s;
+  pointer-events: auto;
+}
+
+.button-wrapper .popup div {
+  display: block;
+}
+
+.popup ul {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 39px;
+  bottom: 29px;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #ccc;
+}
+
+.popup .activity-item {
+  border-bottom: 1px solid #ccc;
+  padding: 4px 12px 7px 12px;
+  font-family: Segoe UI Semilight;
+  height: 39px;
+  position: relative;
+}
+
+.popup .activity-item .event-type {
+  margin-top: 1px;
+}
+
+.activity-item {
+  position: relative;
+  color: #787878;
+}
+
+.activity-item a {
+  color: #0679B8;
+}
+
+.activity-item .marker {
+  position: absolute;
+  width: 3px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: #7CB3E6;
+}
+
+.popup .activity-item .marker {
+  width: 4px;
+}
+
+.activity-item.new .marker {
+  background: #067BBA;
+}
+
+.activity-item.error .marker {
+  background: #bd0000;
+}
+
+.activity-item.box.error {
+  background-image: url('../images/error-bg-large.png');
+  background-repeat: no-repeat;
+  background-color: #FCF3F3;
+  background-position: right -40px;
+}
+
+.activity-item.error {
+  color: #454545;
+  background: url('../images/error-bg-small.png') no-repeat 259px -24px #FCF3F3;
+}
+
+.activity-item.error a {
+  color: #bd0000;
+}
+
+.activity-item .info {
+}
+
+.activity-item .subscription {
+  font-family: Segoe UI Semibold;
+  font-size: 21px;
+  line-height: 1.3em;
+}
+
+.activity-item .env {
+  font-family: Segoe UI Semibold;
+  color: #000;
+  font-size: 16px;
+}
+
+.activity-item .timestamp {
+  float: right;
+  font-size: 14px;
+  margin-top: 3px;
+  color: #454545;
+}
+
+.activity-item .event-type,
+.activity-item .details h2 {
+  font-family: Segoe UI;
+  color: #000;
+  font-size: 15px;
+  font-weight: normal;
+  margin: 10px 0 0;
+}
+
+.activity-item.error .event-type {
+  text-transform: lowercase;
+}
+
+.activity-item.error .event-type:before {
+  content: 'Failed ';
+  text-transform: capitalize;
+}
+
+.activity-item .details {
+  margin-top: 8px;
+}
+
+.activity-item .show-more:after {
+  content: '';
+  background: url('../images/caret-small.png') no-repeat center bottom transparent;
+  width: 8px;
+  height: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  margin-left: 4px;
+}
+
+.activity-item .show-more.show:after {
+  background-position: center top;
+}
+
+.popup .activity-item {
+  font-size: 13px;
+}
+
+.popup .activity-item .subscription {
+  font-size: 16px;
+}
+
+.popup .activity-item .env {
+  font-size: 13px;
+}
+
+.popup .activity-item .timestamp {
+  float: right;
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+.popup .activity-item .event-type {
+  font-size: 13px;
+  font-family: Segoe UI Semilight;
+  display: inline-block;
+}
+
+.popup .activity-item .event-type:after {
+  content: ' - ';
+}
+
+.popup .activity-item .summary {
+  display: inline-block;
+}
+
+.popup .activity-item .details {
+  display: none;
+}
+
+.popup .popup-links {
+  padding: 6px 12px 6px;
+  text-align: right;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid #ccc;
+}
+
+.activity-item.throbber {
+  position: relative;
+  overflow: hidden;
+  border-left: none;
+  padding-left: 12px;
+}
+
+.open .activity-item.throbber .marker {
+  content: '';
+  width: 225px;
+  top: 0;
+  bottom: 0;
+  background: url('../images/throbber-bg.png') no-repeat center center transparent;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 1.75s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-duration: 1.75s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -moz-animation-duration: 1.75s;
+  -moz-animation-name: activity-throbber;
+  -moz-animation-delay: 0s;
+  -webkit-animation-name: activity-throbber;
+  -webkit-animation-delay: 0s;
+  animation-name: activity-throbber;
+  animation-delay: 0s;
+  position: absolute;
+  z-index: 0;
+  opacity: .2;
+}
+
+.activity-item.progress {
+  font-weight: normal;
+  position: relative;
+  overflow: hidden;
+  border-left: none;
+  padding-left: 12px;
+}
+
+.open .activity-item.progress .marker {
+  content: '';
+  width: 0%;
+  top: 0;
+  bottom: 0;
+  background: url('../images/progress-bg.png') repeat-x center center transparent;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-duration: 2s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: ease-in-out;
+  -moz-animation-duration: 2s;
+  -moz-animation-name: activity-progress;
+  -moz-animation-delay: 0s;
+  -webkit-animation-name: activity-progress;
+  -webkit-animation-delay: 0s;
+  animation-name: activity-progress;
+  animation-delay: 0s;
+  position: absolute;
+  z-index: 0;
+  opacity: .25;
+  left: 0;
+  right: auto;
+  -webkit-transition: width .25s;
+  -moz-transition: width .25s;
+  -ms-transition: width .25s;
+  transition: width .25s;
+}
+
+@-moz-keyframes activity-throbber {
+  from {
+    left: -225px;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@-webkit-keyframes activity-throbber {
+  from {
+    left: -225px;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@-moz-keyframes activity-progress {
+  from {
+    background-position: 105%;
+  }
+  to {
+    background-position: -5%;
+  }
+}
+
+@-webkit-keyframes activity-progress {
+  from {
+    background-position: 105%;
+  }
+  to {
+    background-position: -5%;
+  }
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform:rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform:rotate(360deg);
+  }
+}
+
+.activity-item.box {
+  padding: 16px 20px;
+  border: 1px solid #dedede;
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(-45deg,  #ffffff 47%, #f0f0f0 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(47%,#ffffff), color-stop(100%,#f0f0f0)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(-45deg,  #ffffff 47%,#f0f0f0 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(-45deg,  #ffffff 47%,#f0f0f0 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(-45deg,  #ffffff 47%,#f0f0f0 100%); /* IE10+ */
+  background: linear-gradient(135deg,  #ffffff 47%,#f0f0f0 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f0f0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.activity-item.box + .activity-item.box {
+  margin-top: 20px;
+}
+
+.activity-item .details .more {
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height .25s;
+  -moz-transition: height .25s;
+  -ms-transition: height .25s;
+  transition: height .25s;
+}
+
+.activity-item .details .show + .more {
+  height: auto;
+  -webkit-transition: height .25s;
+  -moz-transition: height .25s;
+  -ms-transition: height .25s;
+  transition: height .25s;
+}

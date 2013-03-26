@@ -1,0 +1,118 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function feedbacker_menu() {
+  $items = array();
+  
+  return $items;
+}
+
+function feedbacker_menu_alter(&$items) {
+  $items['feedbacker/%node'] = $items['node/%node'];
+  $items['feedbacker/%node/view'] = $items['node/%node/view'];
+  $items['feedbacker/add'] = $items['node/add/comment-thread'];
+  $items['feedbacker/%node/edit'] = $items['node/%node/edit'];
+  $items['feedbacker/%node/delete'] = $items['node/%node/delete'];
+}
+
+function feedbacker_theme($existing, $type, $theme, $path) {
+  return array(
+    // Dialog page.
+    'feedbacker_dialog' => array(
+      'render element' => 'page',
+      'template' => 'templates/feedbacker-dialog',
+      'file' => 'feedbacker.theme.inc',
+    ),
+  );
+}
+
+function feedbacker_node_info() {
+  return array(
+    'comment_thread' => array(
+      'name' => t('Comment thread'),
+      'module' => 'feedbacker',
+      'description' => 'A node to start a positioned comment thread',
+      'has_title' => FALSE,
+      'has_body' => TRUE,
+    )
+  );
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function feedbacker_page_alter(&$page) {
+  if (arg(0) == 'feedbacker') {
+    $page['#theme'] = 'feedbacker_dialog';
+  }
+}
+
+function feedbacker_block_info() {
+  $blocks = array();
+  
+  $blocks['feedbacker-toggle'] = array(
+    'info' => 'Feedbacker toggle',
+  );
+  
+  return $blocks;
+}
+
+function feedbacker_block_info_alter(&$blocks, $theme, $code_blocks) {
+  $blocks['feedbacker']['feedbacker-toggle']['region'] = 'footer_right';
+}
+
+function feedbacker_block_view($delta = '') {
+  if ($delta == 'feedbacker-toggle') {
+    $path = drupal_get_path('module', 'feedbacker');
+    drupal_add_js($path . '/js/feedbacker.js');
+    drupal_add_css($path . '/css/feedbacker.css');
+    
+    return array(
+      'subject' => '',
+      'content' => l('Enable comments', 'feedbacker/toggle', array('attributes' => array('class' => 'feedbacker-toggle'))),
+    );
+  }
+}
+
+/**
+ * @param boolean $js
+ *    Set TRUE/FALSE depending on whether or not the client has JS
+ * @return string 
+ */
+function feedbacker_add($js) {
+  // Check token, individual callback types will use if necessary.
+  $title = 'Create comment';
+  
+  $path = drupal_get_path('module', 'node');
+  include_once $path . '/node.pages.inc';
+  $output = node_add('comment_thread');
+  
+  if ($js) {
+    ctools_include('ajax');
+    ctools_include('modal');
+    ctools_modal_render($title, $output);
+  }
+  else {
+    drupal_set_title($title);
+    return $output;
+  }
+}
+
+function feedbacker_form_comment_node_comment_thread_form_alter(&$form, &$form_state, $form_id) {
+  $form['author']['#access'] = FALSE;
+  $form['subject']['#access'] = FALSE;
+  $form['actions']['preview']['#access'] = FALSE;
+}
+
+function feedbacker_form_comment_thread_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['additional_settings']['#access'] = FALSE;
+  $form['actions']['preview']['#access'] = FALSE;
+  $form['actions']['submit']['#submit'][] = 'feedbacker_node_submit';
+  $form['actions']['submit']['#attributes']['classes'][] = 'use-ajax-submit';
+}
+
+function feedbacker_node_submit($form, &$form_state) {
+  $form_state['redirect'] = 'feedbacker/view/' . $form_state['nid'];
+}

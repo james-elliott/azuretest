@@ -1,0 +1,6 @@
+name = Fake modules page
+description = Replaces the modules page with an image.
+package = Acquia
+core = 7.x
+
+dependencies[] = php

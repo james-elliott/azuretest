@@ -1,0 +1,40 @@
+<?php
+
+function landing_menu() {
+  $items = array();
+  
+  $items['northstars'] = array(
+    'title' => 'Northstars',
+    'description' => 'Acquia Design Northstars',
+    'page callback' => 'landing_page',
+    'access arguments' => array('access content'), 
+    'weight' => 0,
+  );
+  
+  return $items;
+}
+
+function landing_page() {
+  $output = 'Click a link below to visit the northstar design';
+  
+  $links = array(
+    'devdesktop' => array(
+      'title' => 'Dev Desktop',
+      'href' => 'http://devdesktop.' . $_SERVER['HTTP_HOST'],
+      'attributes' => array(
+        'target' => '_new',
+      ),
+    ),
+    'netcloud' => array(
+      'title' => 'Network and Cloud',
+      'href' => 'http://netcloud.' . $_SERVER['HTTP_HOST'],
+      'attributes' => array(
+        'target' => '_new',
+      ),
+    ),
+  );
+
+  $output .= theme('links', array('links' => $links, 'attributes' => array('class' => array('hover-buttons'))));
+  
+  return $output;
+}

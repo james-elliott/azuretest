@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function fake_modules_menu_alter(&$items) {
+  $items['admin/modules/real'] = $items['admin/modules'];
+  
+  $items['admin/modules']['page callback'] = 'fake_modules_redirect';
+  
+  $items['admin/modules/fake'] = array(
+    'title' => 'Modules',
+    'description' => 'Extend site functionality.',
+    'page callback' => 'fake_modules_page_builder',
+    'access arguments' => array('access administration pages'),
+  );
+}
+
+function fake_modules_theme($existing, $type, $theme, $path) {
+  return array(
+    'fake_modules_page' => array(
+      'render element' => 'element',
+      'template' => 'fake_modules_page',
+    ),
+  );
+}
+
+function fake_modules_redirect() {
+  drupal_goto('admin/modules/fake');
+}
+
+function fake_modules_page_builder($string = FALSE, $stage = '') {
+  $return = theme('fake_modules_page', array());
+  
+  return $return;
+}
+
+function template_preprocess_fake_modules_page(&$vars) {
+  $vars['png_url'] =  drupal_get_path('module', 'fake_modules') . '/images/fake_modules.png';
+  $vars['jpg_url'] =  drupal_get_path('module', 'fake_modules') . '/images/fake_modules.jpg';
+}

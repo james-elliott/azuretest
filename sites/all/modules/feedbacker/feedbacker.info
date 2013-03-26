@@ -1,0 +1,8 @@
+name = Feedbacker
+description = Let's you place feedback threads on the page
+package = Acquia
+core = 7.x
+
+dependencies[] = comment
+dependencies[] = node
+dependencies[] = ctools

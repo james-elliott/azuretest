@@ -1,0 +1,207 @@
+
+/**
+ * @file
+ * Layout CSS for medium screens
+ */
+
+body {
+  background: #fff;
+}
+
+.stack-width {
+  padding: 10px 20px;
+}
+
+#page {
+  padding-top: 110px;
+}
+
+#header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+#main-tabs {
+  padding-top: 20px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 66px;
+  z-index: 3;
+  background: #fff;
+}
+
+/* Sidebar */
+#main .sidebar.left {
+  float: left;
+  margin-right: 40px;
+  min-width: 187px;
+}
+
+#main-tabs.scrolled:before {
+  content: '';
+  background-image: linear-gradient(top, rgba(255,255,255, 1) 0%, rgba(255,255,255, 0) 80%);
+  background-image: -o-linear-gradient(top, rgba(255,255,255, 1) 0%, rgba(255,255,255, 0) 80%);
+  background-image: -moz-linear-gradient(top, rgba(255,255,255, 1) 0%, rgba(255,255,255, 0) 80%);
+  background-image: -webkit-linear-gradient(top, rgba(255,255,255, 1) 0%, rgba(255,255,255, 0) 80%);
+  background-image: -ms-linear-gradient(top, rgba(255,255,255, 1) 0%, rgba(255,255,255, 0) 80%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0, rgba(255,255,255, 1)),
+    color-stop(.8, rgba(255,255,255, 0))
+  );
+  position: absolute;
+  top: 56px;
+  height: 40px;
+  left: 0;
+  right: 0;
+}
+
+#main .sidebar.right {
+  float: right;
+  padding: 10px 30px 0 30px;
+  width: 240px;
+  background-image: url('../vertical-seperator.png');
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  position: fixed;
+  right: 0;
+  left: auto;
+  top: 130px;
+  bottom: 60px;
+  font-size: 16px;
+  font-family: 	'Museo Sans 500',helvetica-neue,helvetica,"Arial",sans-serif;
+  color: #666;
+  line-height: 1.8em;
+}
+
+#main .sidebar.right .sitename {
+  font-size: 22px;
+  color: #333;
+  line-height: 1.8em;
+}
+
+#main .sidebar.right img {
+  width: 100%;
+  height: auto;
+}
+
+.node img {
+  display: block;
+  margin-bottom: 18px;
+}
+.node h2 {
+  margin: 4px 0;
+  font-size: 16px;
+}
+
+.node h2 a {
+  color: #333;
+  text-decoration: none;
+}
+
+#main .sidebar .menu {
+  margin: 0;
+  padding: 0;
+}
+
+#main .sidebar .menu li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+#main .sidebar .menu li:first-child {
+  border-top: 1px solid #ccc;
+}
+
+#main .sidebar .menu li a {
+  font-size: 16px;
+  display: block;
+  padding: 7px 14px 7px 21px;
+  color: #999;
+  text-decoration: none;
+  position: relative;
+}
+
+#main .sidebar .menu li a:hover {
+  color: #333;
+}
+
+#main .sidebar .menu li a.active,
+#main .sidebar .menu li a.active-trail.active {
+  background-image: url('../leftnav-active-box.png');
+  background-size: 100% 100%;
+  color: #eee;
+}
+
+#main .sidebar .menu li a.active:after {
+  content:"";
+  position: absolute;
+  width: 15px;
+  background-image: url('../leftnav-active.png');
+  right: -15px;
+  top: 0;
+  bottom: 0;
+  background-size: 100% 100%;
+}
+
+#main .sidebar .menu li a.active-trail {
+  color: #000;
+}
+
+#main .sidebar .menu .menu {
+  margin-bottom: 4px;
+}
+
+#main .sidebar .menu .menu li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+#main .sidebar .menu .menu li a {
+  font-size: 14px;
+  padding: 4px 14px 4px 12px;
+  margin-left: 30px;
+  min-width: 119px;
+}
+
+#main .sidebar .menu .menu li a.active {
+  color: #fff;
+}
+
+#main #content {
+  bottom: 60px;
+  left: 0;
+  overflow-y: auto;
+  padding-top: 0;
+  position: fixed;
+  right: 0;
+  top: 120px;
+  overflow-x: hidden;
+}
+
+.sidebar-right #main #content {
+  right: 300px;
+}
+
+.sidebar-right #footer:before,
+.sidebar-right #main-tabs:before {
+  right: 320px;
+}
+
+.admin-expanded #header,
+.admin-expanded #main-tabs,
+.admin-expanded #footer,
+.admin-expanded #main #content {
+  left: 260px;
+}

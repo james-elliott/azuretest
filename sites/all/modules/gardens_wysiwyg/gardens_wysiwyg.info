@@ -1,0 +1,4 @@
+name = Garden's WYSIWYG
+description = Customizes the WYSIWYG similar to Drupal Gardens
+package = Acquia
+core = 7.x

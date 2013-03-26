@@ -1,0 +1,55 @@
+
+/**
+ * @file
+ * CSS for header styling
+ */
+
+#header {
+  color: #ddd;
+  font-size: 16px;
+  font-family: Segoe UI Semibold;
+  background: url('../images/header-bg.png') repeat-x left bottom #fff;
+  border-bottom: 1px solid #7CB3E6;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+.header .section {
+  position: relative;
+  z-index: 1;
+}
+
+.header a {
+  color: #067BBA;
+}
+
+.header a:hover {
+  color: #00568B;
+}
+
+.header a.active-trail,
+.header a.active,
+.header a:active {
+  color: #000;
+}
+
+#header .block {
+  padding-top: 6px;
+}
+
+#header .block + .block {
+  margin-right: 20px;
+}
+
+a#logo {
+  float: left;
+  display: inline-block;
+  background: url('../logo.png') no-repeat left top transparent;
+  color: #818384;
+  padding: 6px 3px 5px 32px;
+  margin-right: 10px;
+}
+
+.front a#logo {
+  color: #363738;
+}

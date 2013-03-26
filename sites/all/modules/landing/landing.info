@@ -1,0 +1,4 @@
+name = Acquia Northstar Central Registration Site
+description = UI helpers for Drupal admins and managers.
+package = Acquia
+core = 7.x

@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function feedbacker_install() {
+  
+}
+
+function feedbacker_enable() {
+  $fields = array(
+    'feedbacker_x' => array(
+      'field' => array(
+        'type' => 'number_integer',
+        'settings' => array(),
+      ),
+      'instance' => array(
+        'label' => 'X coordinate',
+        'widget' => array(
+          'type' => 'text',
+        ),
+      ),
+    ),
+    'feedbacker_y' => array(
+      'field' => array(
+        'type' => 'number_integer',
+        'settings' => array(),
+      ),
+      'instance' => array(
+        'label' => 'Y coordinate',
+        'widget' => array(
+          'type' => 'text',
+        ),
+      ),
+    ),
+    'feedbacker_path' => array(
+      'field' => array(
+        'type' => 'text',
+        'settings' => array(),
+      ),
+      'instance' => array(
+        'label' => 'Path',
+        'widget' => array(
+          'type' => 'text',
+        ),
+      ),
+    ),
+  );
+  
+  foreach ($fields as $name => $field) {
+    if (!field_info_field($name)) {
+      $new_field = $field['field'];
+      $new_field['field_name'] = $name;
+      field_create_field($new_field);
+      dsm('creating field ' . $name);
+    }
+
+    if (!field_read_instance('node', $name, 'comment_thread', array('include_inactive' => TRUE))) {
+      // Create the instance on the bundle.
+      $instance = array(
+        'field_name' => $name,
+        'entity_type' => 'node',
+        'label' => $field['instance']['label'],
+        'bundle' => 'comment_thread',
+        'required' => TRUE,
+        'widget' => array(
+          'type' => 'text',
+        ),
+      );
+      field_create_instance($instance);
+      dsm('creating instance ' . $name);
+    }
+  }
+  
+  if (field_read_instance('comment', 'comment_body', 'comment_node_comment_thread', array('include_inactive' => TRUE))) {
+    $thing = field_info_instance('comment', 'comment_body', 'comment_node_comment_thread');
+    $thing['settings']['text_processing'] = 0;
+    field_update_instance($thing);
+  }
+  
+  if (field_read_instance('node', 'body', 'comment_thread', array('include_inactive' => TRUE))) {
+    $thing = field_info_instance('node', 'body', 'comment_thread');
+    $thing['settings']['text_processing'] = 0;
+    field_update_instance($thing);
+  }
+  
+  node_types_rebuild();
+  $types = node_type_get_types();
+  node_add_body_field($types['comment_thread']);
+}

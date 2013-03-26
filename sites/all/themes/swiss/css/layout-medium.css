@@ -1,0 +1,28 @@
+
+/**
+ * @file
+ * Layout CSS for medium screens
+ */
+
+body {
+  background: #fff;
+}
+
+.stack-width {
+  padding: 0px 20px;
+}
+
+#page {
+  padding-top: 94px;
+  padding-bottom: 48px;
+}
+
+#header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  padding-top: 2px;
+  padding-bottom: 0px;
+}

@@ -1,0 +1,46 @@
+
+/**
+ * @file
+ * CSS for Sidebar styling
+ */
+
+.sidebar {
+  position: fixed;
+}
+
+.sidebar.left {
+  margin-left: 40px;
+  width: 220px;
+}
+
+.sidebar.right {
+}
+
+.sidebar-left #content {
+  margin-left: 290px;
+  padding-left: 0;
+}
+
+.sidebar.left .block h2 {
+  display: none;
+}
+
+.sidebar.left .block .menu li {
+  list-style: none;
+  margin-left: 0;
+  padding: 0;
+}
+
+.sidebar.left .block .menu li + li {
+  margin-top: 8px;
+}
+
+.sidebar.left .block .menu li.first {
+  font-size: 21px;
+}
+
+.sidebar.left .block + .block {
+  border-top: 1px solid #bababa;
+  margin-top: 16px;
+  padding-top: 14px;
+}

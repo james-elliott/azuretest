@@ -1,0 +1,187 @@
+<?php
+
+function devdesktop_menu() {
+  $items = array();
+  
+  $items['stack'] = array(
+    'title' => 'Stack',
+    'description' => 'Your AMP stack',
+    'page callback' => 'devdesktop_stack',
+    'file' => 'includes/devdesktop.pages.inc',
+    'menu_name' => 'left_tabs',
+    'access arguments' => array('access content'), 
+    'weight' => 1,
+  );
+  
+  $items['stack/togglestack'] = array(
+    'title' => 'Stack',
+    'description' => 'Your AMP stack',
+    'page callback' => 'devdesktop_togglestack',
+    'file' => 'includes/devdesktop.pages.inc',
+    'access arguments' => array('access content'), 
+    'weight' => 1,
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['node/%node/sync'] = array(
+    'title' => 'Sync',
+    'page callback' => 'devdesktop_sync',
+    'page arguments' => array(1),
+    'access callback' => 'node_access',
+    'access arguments' => array('update', 1),
+    'weight' => 0,
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'file' => 'includes/devdesktop.pages.inc',
+  );
+  
+  $items['frameclose'] = array(
+    'title' => 'frameclose',
+    'description' => 'Closes the iframe and refreshes the page',
+    'page callback' => 'devdesktop_frameclose',
+    'file' => 'includes/devdesktop.pages.inc',
+    'access arguments' => array('access content'), 
+    'weight' => 1,
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['add_site'] = array(
+    'title' => 'Add site',
+    'description' => 'Add a site to Dev Desktop',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('devdesktop_add_site'),
+    'file' => 'includes/devdesktop.pages.inc',
+    'access arguments' => array('access content'), 
+    'weight' => 1,
+  );
+  
+  return $items;
+}
+
+function devdesktop_theme() {
+  return array(
+    // Dialog page.
+    'devdesktop_dialog' => array(
+      'render element' => 'page',
+      'template' => 'templates/devdesktop-dialog',
+      'file' => 'includes/devdesktop.theme.inc',
+    ),
+  );
+}
+
+function devdesktop_init() {
+  drupal_add_js(drupal_get_path('module', 'devdesktop') . '/js/devdesktop.js');
+  drupal_add_library('system', 'drupal.ajax');
+  drupal_add_library('system', 'jquery.form');
+}
+
+function devdesktop_page_alter(&$page) {
+  if (isset($_GET['dialog']) || $_GET['q'] == 'frameclose') {
+    $page['#theme'] = 'devdesktop_dialog';
+  }
+}
+
+function devdesktop_block_info() {
+  $blocks = array();
+  
+  $blocks['action_bar'] = array(
+    'info' => 'Action bar',
+    'region' => 'footer',
+    'status' => 1,
+  );
+  
+  return $blocks;
+}
+
+function devdesktop_block_view($delta = '') {
+  if ($delta == 'action_bar') {
+   # drupal_set_message('test');
+    $output = '';
+
+    if (arg(0) == 'sites-list') {
+      $add_new = array(
+        'add_new' => array(
+          'title' => 'Add site',
+          'href' => 'add_site',
+          'attributes' => array(
+            'class' => array('ajax'),
+          ),
+        ),
+      );
+
+      $output = theme('links', array('links' =>$add_new, 'attributes' => array('class' => array('hover-buttons'))));
+
+      if ($arg = arg(1)) {
+        $node = node_load($arg);
+        if (!empty($node)) {
+          $site_links = array(
+            'goto' => array(
+              'title' => 'Go to',
+              'href' => $node->field_url[LANGUAGE_NONE][0]['value'],
+              'attributes' => array(
+                'target' => '_new',
+              ),
+            ),
+          );
+
+          $site_links['sync'] = array(
+            'title' => count($node->field_hosting) > 0 ? 'Sync' : 'Connect',
+            'href' => 'node/' . $node->nid . '/sync',
+            'attributes' => array(
+              'class' => array('ajax'),
+            ),
+          );
+          
+          $site_links['db'] = array(
+            'title' => 'Manage db',
+            'href' => 'node/' . $node->nid . '/db',
+            'attributes' => array(
+              'class' => array('ajax'),
+            ),
+          ); 
+
+          $site_links['edit'] = array(
+            'title' => 'Edit',
+            'href' => 'node/' . $node->nid . '/edit',
+              'attributes' => array(
+                'class' => array('ajax'),
+              ),
+          );
+          $site_links['delete'] = array(
+            'title' => 'Delete',
+            'href' => 'node/' . $node->nid . '/delete',
+              'attributes' => array(
+                'class' => array('ajax'),
+              ),
+          );
+
+          $output .= theme('links', array('links' => $site_links, 'attributes' => array('class' => array('hover-buttons'))));
+        }
+      }
+    } else if (arg(0) == 'stack') {
+      $state = variable_get('stack_status', false);
+      $destination = drupal_get_destination();
+      $links = array(
+        'stop_start' => array(
+          'title' => $state ? 'Stop all' : 'Start all',
+          'href' => 'stack/togglestack',
+          'query' => $destination,
+        ),
+        'settings' => array(
+          'title' => 'Settings',
+          'href' => 'stack/settings',
+          'attributes' => array(
+            'class' => array('ajax'),
+          ),
+        ),
+      );
+      
+      $output = theme('links', array('links' => $links, 'attributes' => array('class' => array('hover-buttons'))));
+    }
+    
+    return array(
+      'subject' => '',
+      'content' => $output,
+    );
+  }
+}

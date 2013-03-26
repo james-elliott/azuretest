@@ -1,0 +1,7 @@
+name = Acquia NetCloud UI
+description = UI helpers for Drupal admins and managers.
+package = Acquia
+core = 7.x
+
+dependencies[] = menu_block
+dependencies[] = menu

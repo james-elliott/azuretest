@@ -1,0 +1,61 @@
+<?php
+
+/*
+ * This function alters WYSIWYG text inputs to improve UX
+ */
+
+function gardens_wysiwyg_pre_render_text_format($element) {
+  // Create a global variable to pass whether or not we're creating a WYSIWYG
+  // instance for a comment form
+  global $wysiwyg_comment;
+  $wysiwyg_comment = FALSE;
+
+  // Check to make sure this is a comment form and is not on a forum post
+  if (isset($element['#entity_type']) && isset($element['#bundle']) && $element['#entity_type'] == 'comment' && $element['#bundle'] != 'comment_node_forum') {
+    $wysiwyg_comment = TRUE;
+  }
+
+  // Add the JS that handles behaviors, this needs to be added after the WYSIWYG
+  // code so that it can access the CKEDITOR object
+  $path = drupal_get_path('module', 'gardens_wysiwyg');
+  drupal_add_js($path . '/js/gardens_wysiwyg.js', array('scope' => 'footer', 'every_page' => TRUE, 'weight' => 2));
+
+  // Add CSS to customize the look of the WYSIWYG
+  $element['#attached']['css'][] = $path . '/gardens_wysiwyg.css';
+
+  // This creates the text strings to list the allowable HTML per input format
+  if (isset($element['format']['format']['#options'])) {
+    $js_settings = array('wysiwyg_formats' => array());
+    foreach($element['format']['format']['#options'] as $key => $option) {
+      $filters = filter_list_format($key);
+      // Check if all markup is forbidden
+      if (isset($filters['filter_html_escape']) && $filters['filter_html_escape']->status == 1) {
+        // All html is escaped, set the available tags to none
+        $js_settings['wysiwyg_formats'][$key] = t('None');
+      }
+      else {
+        if (isset($filters['filter_html']) && $filters['filter_html']->status == 1) {
+          $js_settings['wysiwyg_formats'][$key] = check_plain($filters['filter_html']->settings['allowed_html']);
+        } else {
+          // The html filter is either not present or not enabled, so the
+          // allowable tags defaults to "All".
+          $js_settings['wysiwyg_formats'][$key] = t('All');
+          // Check to see if the HTML purifier filter is enabled, which will
+          // reduce the available tags.
+          if (isset($filters['htmlpurifier_basic']) && $filters['htmlpurifier_basic']->status == 1) {
+            // HTML purifier reduces the allowable tags to avoid XSS but still
+            // allows most tags.
+            $js_settings['wysiwyg_formats'][$key] = t('Most HTML tags are allowed');
+          }
+        }
+      }
+    }
+    // Add the strings to the Drupal settings JS object
+    $element['#attached']['js'][] = array(
+      'type' => 'setting',
+      'data' => $js_settings,
+    );
+  }
+
+  return $element;
+}

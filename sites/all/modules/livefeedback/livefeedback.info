@@ -1,0 +1,9 @@
+name = Live Feedback
+description = Provides all the awesomeness of "Google Feedback"
+package = "Hackaton 2012"
+core = 7.x
+configure = admin/config/livefeedback
+
+scripts[] = libs/html2canvas.min.js
+scripts[] = js/feedback.js
+stylesheets[all][] = css/livefeedback.css

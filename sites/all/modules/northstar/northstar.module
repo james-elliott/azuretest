@@ -1,0 +1,879 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function northstar_menu() {
+  $items = array();
+  
+  $items['dashboard'] = array(
+    'title' => 'Dashboard',
+    'description' => 'Global dashboard',
+    'page callback' => 'northstar_dashboard',
+    'page arguments' => array('northstar_wip', 'This page will be a configurable dashboard system similar to ducksboard.com'),
+    'file' => 'includes/northstar.dashboard.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 1,
+  );
+  
+  $items['dashboard/add'] = array(
+    'title' => 'Add widget',
+    'description' => 'Add a widget to the Global dashboard',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('northstar_dashboard_add_widget', 2),
+    'file' => 'includes/northstar.dashboard.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => 1,
+  );
+  
+  $items['mysites'] = array(
+    'title' => 'Sites',
+    'description' => 'Your sites in the Acquia Network',
+    'page callback' => 'northstar_sites',
+    'page arguments' => array(0),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 2,
+  );
+
+  $items['mysites/insight'] = array(
+    'title' => 'Insight',
+    'description' => 'Insight',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 1,
+  );
+
+  $items['mysites/insight/performance'] = array(
+    'title' => 'Performance',
+    'description' => 'Performance',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 1,
+  );
+
+  $items['mysites/insight/security'] = array(
+    'title' => 'Security',
+    'description' => 'Security',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 2,
+  );
+
+  $items['mysites/insight/code'] = array(
+    'title' => 'Code Quality',
+    'description' => 'Code Quality',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 3,
+  );
+
+  $items['mysites/insight/seo'] = array(
+    'title' => 'SEO',
+    'description' => 'SEO',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 4,
+  );
+
+  $items['mysites/add-ons'] = array(
+    'title' => 'Add-ons',
+    'description' => 'Additional 3rd party services',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 4,
+  );
+
+  $items['mysites/search'] = array(
+    'title' => 'Search',
+    'description' => 'Search',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 3,
+  );
+
+  $items['mysites/logs'] = array(
+    'title' => 'Logs',
+    'description' => 'logs',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 5,
+  );
+
+  $items['mysites/envs'] = array(
+    'title' => 'Environments',
+    'description' => 'Environments',
+    'page callback' => 'northstar_env',
+    'page arguments' => array(2),
+    'menu_name' => 'northstar',
+    'file' => 'includes/northstar.cloud.inc',
+    'access callback' => 'northstar_has_cloud',
+    'weight' => 0,
+  );
+  
+  $items['mysites/envs/update'] = array(
+    'title' => 'Push code',
+    'description' => 'Environments',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('northstar_update_code', 3,4,5),
+    'file' => 'includes/northstar.cloud.inc',
+    'access callback' => 'northstar_has_cloud',
+  );
+  
+  $items['mysites/envs/live_dev'] = array(
+    'title' => 'Enable live development',
+    'description' => 'Environments',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('northstar_toggle_live_dev'),
+    'file' => 'includes/northstar.cloud.inc',
+    'access callback' => 'northstar_has_cloud',
+  );
+  
+  $items['mysites/envs/import'] = array(
+    'title' => 'Import site',
+    'description' => 'Import an existing site',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('northstar_import_site'),
+    'file' => 'includes/northstar.cloud.inc',
+    'access callback' => 'northstar_has_cloud',
+  );
+  
+  $items['mysites/envs/install'] = array(
+    'title' => 'Install Drupal',
+    'description' => 'Install Drupal or a distribution',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('northstar_install_site', 3),
+    'file' => 'includes/northstar.cloud.inc',
+    'access callback' => 'northstar_has_cloud',
+  );
+  
+  $items['mysites/envs/update-content'] = array(
+    'title' => 'Update content',
+    'description' => 'Update content on this environment',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('northstar_update_content', 3),
+    'file' => 'includes/northstar.cloud.inc',
+    'access callback' => 'northstar_has_cloud',
+  );
+  
+  $items['mysites/envs/backup-dbs'] = array(
+    'title' => 'Backup databases',
+    'description' => 'Create on demand backups for the dbs in this environment',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('northstar_backup_db', 3),
+    'file' => 'includes/northstar.cloud.inc',
+    'access callback' => 'northstar_has_cloud',
+  );
+
+  $items['mysites/servers'] = array(
+    'title' => 'Servers',
+    'description' => 'Servers',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('The servers page is undergoing massive redesign'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'northstar_has_cloud',
+    'weight' => 2,
+  );
+
+  $items['library'] = array(
+    'title' => 'Library',
+    'description' => 'Acquia Library',
+    'page callback' => 'northstar_library_home',
+    'file' => 'includes/northstar.library.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 3,
+  );
+  
+  $items['support'] = array(
+    'title' => 'Support',
+    'description' => 'Acquia Support',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('The support section is being reworked.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'northstar',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 4,
+  );
+  
+  $items['mysites/select/%'] = array(
+    'title' => 'Select site',
+    'description' => 'Select site',
+    'page callback' => 'northstar_select_site',
+    'page arguments' => array(2),
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['settings'] = array(
+    'title' => 'Back to site',
+    'description' => 'Return to the main site pages',
+    'page callback' => 'northstar_menu_redirect',
+    'page arguments' => array('settings/users'),
+    'menu_name' => 'settings',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 0,
+  );
+  
+  $items['settings/users'] = array(
+    'title' => 'Users',
+    'description' => 'Update the users and permissions for this site',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'settings',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 0,
+  );
+  
+  $items['settings/notifications'] = array(
+    'title' => 'Notifications',
+    'description' => 'Manage your notification thresholds for this site.',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'settings',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 1,
+  );
+  
+  $items['settings/ssl'] = array(
+    'title' => 'SSL certificate',
+    'description' => 'Add, remove, or update your SSL certificates',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'settings',
+    'access callback' => 'northstar_has_cloud',
+    'weight' => 2,
+  );
+  
+  $items['settings/drush'] = array(
+    'title' => 'Drush setup',
+    'description' => 'Download drush and drush alias files',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'settings',
+    'access callback' => 'northstar_has_cloud',
+    'weight' => 3,
+  );
+  
+  $items['settings/cron'] = array(
+    'title' => 'Cron',
+    'description' => 'Manage cron',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'settings',
+    'access callback' => 'user_is_logged_in',
+    'weight' => 4,
+  );
+  
+  $items['settings/databases'] = array(
+    'title' => 'Databases',
+    'description' => 'Add databases and manage backups',
+    'page callback' => 'northstar_wip',
+    'page arguments' => array('All network pages are awaiting migration to the new theme.'),
+    'file' => 'includes/northstar.pages.inc',
+    'menu_name' => 'settings',
+    'access callback' => 'northstar_has_cloud',
+    'weight' => 5,
+  );
+  
+  $items['fonts'] = array(
+    'title' => 'Font test',
+    'description' => 'Add databases and manage backups',
+    'page callback' => 'northstar_font_stack',
+    'file' => 'includes/northstar.pages.inc',
+    'access callback' => TRUE,
+    'weight' => 5, 
+  );
+  
+  $items['nf'] = array(
+    'title' => 'Not found',
+    'description' => 'Redirect back to where you came from',
+    'page callback' => 'northstar_not_found',
+    'file' => 'includes/northstar.pages.inc',
+    'access callback' => TRUE,
+    'weight' => 5, 
+  );
+  
+  $items['activity'] = array(
+    'title' => 'Activity ',
+    'description' => 'Activity history for all subscriptions',
+    'page callback' => 'northstar_activity',
+    'file' => 'includes/northstar.activity.inc',
+    'access callback' => TRUE,
+    'weight' => 5, 
+  );
+  
+  $items['activity/%'] = array(
+    'title' => 'Activity ',
+    'description' => 'Activity history for all subscriptions',
+    'page callback' => 'northstar_activity',
+    'file' => 'includes/northstar.activity.inc',
+    'access callback' => TRUE,
+    'weight' => 5, 
+  );
+
+  return $items;
+}
+
+function northstar_get_page($page) {
+  $args = func_get_args();
+  // Remove $page from the arguments.
+  array_shift($args);
+  if (function_exists($page)) {
+    return call_user_func_array($page, $args);
+  }
+}
+
+function northstar_has_cloud() {
+  global $user;
+  $site = isset($_GET['site']) ? node_load($_GET['site']) : FALSE;
+  if($site && !$site->field_cloud[LANGUAGE_NONE][0]['value'] || $user->uid == 0) {
+    return FALSE;
+  }
+  return TRUE;
+}
+
+function northstar_theme($existing, $type, $theme, $path) {
+  return array(
+    'northstar_dropbutton' => array(
+      'render element' => 'element',
+      'file' => 'includes/northstar.theme.inc',
+    ),
+    'northstar_select' => array(
+      'render element' => 'element',
+      'file' => 'includes/northstar.theme.inc',
+    ),
+    'northstar_container' => array(
+      'render element' => 'element',
+      'file' => 'includes/northstar.theme.inc',
+    ),
+    'northstar_site_thumb' => array(
+      'render element' => 'element',
+      'file' => 'includes/northstar.theme.inc',
+    ),
+    'northstar_activity_item' => array(
+      'render element' => 'element',
+      'template' => 'templates/activity-item',
+      'file' => 'includes/northstar.theme.inc',
+    ),
+    'northstar_notification' => array(
+      'render element' => 'element',
+      'template' => 'templates/notification',
+      'file' => 'includes/northstar.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function northstar_page_alter(&$page) {
+  $title = '';
+  switch (arg(0)) {
+    case 'mysites':
+      $title = 'Sites';
+      break;
+    case 'dashboard':
+      $title = 'Dashboard';
+      break;
+    case 'library':
+      $title = 'Library';
+      break;
+    case 'support':
+      $title = 'Support';
+      break;
+    case 'settings':
+      $title = 'Site settings';
+      break;
+    case 'user':
+      global $user;
+      $title = !empty($user->name) ? $user->name : t('Log in');
+      if ($user->uid != arg(1)) {
+        $title = '';
+      }
+      break;
+  }
+  
+  if ($title) {
+    drupal_set_title(l(ucfirst($title), arg(0)), PASS_THROUGH);
+  }
+}
+
+function northstar_page_builder($string = FALSE, $stage = '') {
+  $return = $string ? $string : 'Empty page';
+  $return .= $stage;
+  return $return;
+}
+
+function northstar_menu_redirect($new_path) {
+  drupal_goto($new_path);
+}
+
+function northstar_element_info() {
+  $types['drop_button'] = array(
+    '#theme' => 'northstar_dropbutton',
+    '#classes' => array('drop-wrapper'),
+  );
+  $types['jumplist'] = array(
+    '#theme' => 'northstar_dropbutton',
+    '#classes' => array('drop-wrapper'),
+  );
+  
+  $types['northstar_select'] = array(
+    '#theme' => 'northstar_select',
+    '#options' => array(),
+    '#classes' => array('drop-wrapper'),
+  );
+  
+  return $types;
+}
+
+function northstar_block_info() {
+  $blocks = array();
+  
+  $blocks['selected-site'] = array(
+    'info' => 'Selected site',
+  );
+  
+  $blocks['clear-cache'] = array(
+    'info' => 'Clear cache',
+  );
+  
+  $blocks['settings-link'] = array(
+    'info' => 'Settings links',
+  );
+  
+  $blocks['site-dropdown'] = array(
+    'info' => 'Site dropdown',
+  );
+  
+  $blocks['dashboard-dropdown'] = array(
+    'info' => 'Dashboard dropdown',
+  );
+  
+  $blocks['activity'] = array(
+    'info' => 'Activity bar',
+  );
+  
+  $blocks['user'] = array(
+    'info' => 'NS User',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  
+  return $blocks;
+}
+
+function northstar_block_view($delta = '') {
+  $path = drupal_get_path('module', 'northstar');
+  if (user_is_anonymous()) {
+    return;
+  }
+  
+  if ($delta == 'selected-site') {
+    $query = db_select('node', 'n')->extend('PagerDefault');
+  
+    $nids = $query
+      ->fields('n',array('nid'))
+      ->condition('n.type', 'site')
+      ->limit(50)
+      ->execute()
+      ->fetchCol();
+    $nodes = node_load_multiple($nids);
+
+    $output = '';
+    foreach($nodes as $node) {
+      $node_array = node_view($node, 'default');
+    }
+    
+    return array(
+      'subject' => '',
+      'content' => drupal_render($node_array),
+    );
+  }
+  
+  if ($delta == 'clear-cache') {
+    $destination = drupal_get_destination();
+    
+    return array(
+      'subject' => '',
+      'content' => '<div class="button-wrapper">'.l('Clear cache', 'devel/cache/clear', array('query' => $destination, 'attributes' => array('class' => array('button')))) .'</div>',
+    );
+  }
+  
+  if ($delta == 'activity') {
+    $destination = drupal_get_destination();
+    global $user;
+    drupal_add_js($path . '/js/northstar.activity.js');
+    $output = '<div class="button-wrapper">' . l('1', '', array('html' => TRUE, 'attributes' => array('class' => array('button icon activity'))));
+    $output .= '<div class="context-menu">
+        <h2 class="title">Choose a notification type to trigger</h2>
+        <ul class="">
+          <li class="">
+            <a class="create-progress" href="#">Progress bar</a>
+          </li>
+          <li class="">
+            <a class="create-throbber" href="#">Throbber</a>
+          </li>
+        </ul>
+      </div>';
+    
+    $query = new EntityFieldQuery;
+
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+      ->propertyCondition('status', 1)
+      ->propertyCondition('type', 'event')
+      ->fieldCondition('field_notification', 'value', 1, '=')
+      ->propertyOrderBy('created', 'DESC')
+      ->execute();
+
+    if (isset($result['node'])) {
+      $nids = array();
+      foreach($result['node'] as $record) {
+        $nids[] = $record->nid;
+      }
+      $nodes = entity_load('node', $nids);
+      $output .= '<div class="popup notifications">
+        <h2 class="title">Notifications</h2>
+        <ul>';
+      foreach($nodes as $node) {
+        $output .= theme('northstar_notification', array('element' => $node));
+      }
+      $node1 = array_shift($nodes);
+      $node2 = array_shift($nodes);
+      $node1->field_status[LANGUAGE_NONE] = array(0 => array('value' => 'progress'));
+      $node2->field_status[LANGUAGE_NONE] = array(0 => array('value' => 'throbber'));
+      $node1->created = time();
+      $node2->created = time();
+
+      $settings = array(
+        'activity' => array(
+          'progress' => theme('northstar_notification', array('element' => $node1)),
+          'throbber' => theme('northstar_notification', array('element' => $node2)),
+        ),
+      );
+      drupal_add_js($settings, 'setting');
+      
+      $output .= '</ul><div class="popup-links"><a href="/activity">Settings</a></div></div>';
+    }
+
+    return array(
+      'subject' => '',
+      'content' => $output,
+    );
+  }
+  
+  if ($delta == 'settings-link') {
+    $node = isset($_GET['site']) ? node_load($_GET['site']) : FALSE;
+    $output = '';
+    $item = menu_get_item();
+    if ($node && $node->type == 'site' && $item['page_callback'] != 'drupal_get_form') {
+      if (arg(0) == 'mysites') {
+        $output = l('Site settings', 'settings');
+      } else if (arg(0) == 'settings') {
+        #$output = l('Back to site', 'mysites/select/'.$node->nid);
+      }
+    }
+    
+    return array(
+      'subject' => 'Settings link',
+      'content' => $output,
+    );
+  }
+  
+  if ($delta == 'site-dropdown' && isset($_GET['site']) && in_array(arg(0), array('mysites', 'support', 'settings'))) {
+    drupal_add_js(drupal_get_path('module', 'northstar').'/js/northstar.js');
+    $query = new EntityFieldQuery;
+
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+      ->propertyCondition('status', 1)
+      ->propertyCondition('type', 'site')
+      ->execute();
+
+    $nids = array();
+    foreach($result['node'] as $record) {
+      $nids[] = $record->nid;
+    }
+    $nodes = entity_load('node', $nids);
+    $destination = $_GET['q'];
+
+    $links = array(
+      array(
+        'title' => $nodes[$_GET['site']]->title,
+        'href' => 'mysites/select/'.$_GET['site'],
+        'query' => array('destination' => $destination),
+      ),
+    );
+    
+    foreach ($nodes as $node) {
+      $links[] = array(
+        'title' => $node->title,
+        'href' => 'mysites/select/'.$node->nid,
+        'query' => array('destination' => $destination),
+      );
+    }
+    
+    $thing = array(
+      '#type' => 'jumplist',
+      '#links' => $links,
+    );
+
+    return array(
+      'subject' => 'Site dropdown',
+      'content' => $thing,
+    );
+  }
+//  
+  if ($delta == 'dashboard-dropdown') {
+    drupal_add_js(drupal_get_path('module', 'northstar').'/js/northstar.js');
+
+    // Set the primary link
+    $links = array(
+      'default' => array(
+        'title' => 'Default board',
+        'href' => 'dashboard/default',
+      ),
+      'sa' => array(
+        'title' => 'Site admins',
+        'href' => 'dashboard/sa',
+      ),
+      'cio' => array(
+        'title' => 'CIOs',
+        'href' => 'dashboard/cio',
+      ),
+      'marketing' => array(
+        'title' => 'Marketing pros',
+        'href' => 'dashboard/marketing',
+      ),
+    );
+    
+    $dash = in_array(arg(1), array_keys($links)) ? arg(1) : 'default';
+
+    array_unshift($links, $links[$dash]);
+    
+    return array(
+      'subject' => 'Dashboard dropdown',
+      'content' => array(
+        '#type' => 'jumplist',
+        '#links' => $links,
+        '#actions' => array(
+          'add' => array(
+            'title' => 'Add dashboard',
+            'href' => 'node/add/dashboard',
+          ),
+          'manage' => array(
+            'title' => 'Manage dashboards',
+            'href' => 'dashboard/manage',
+          ),
+        ),
+      ),
+    );
+  }
+  
+  if ($delta == 'user') {
+    global $user;
+    $content = l('Sign in', 'user/login');
+    if ($user->uid != 0) {
+      $account = user_load($user->uid);
+      $name = $account->name;
+      if (isset($account->field_first_name[LANGUAGE_NONE][0]['safe_value']) && isset($account->field_last_name[LANGUAGE_NONE][0]['safe_value'])) {
+        $name = $account->field_first_name[LANGUAGE_NONE][0]['safe_value'] . ' ' . $account->field_last_name[LANGUAGE_NONE][0]['safe_value'];
+      }
+      $pic = theme('user_picture', array('account' => $account));
+      $content = l($name . $pic, 'user/'.$account->uid, array('html' => TRUE));
+    }
+    return array(
+      'subject' => 'NS user',
+      'content' => $content,
+    );
+  }
+}
+
+function northstar_select_site($site_id = NULL) {  
+  $site = node_load($site_id);
+  if (empty($site_id) || !is_numeric($site_id) || empty($site)) {
+    drupal_goto('site-list');
+  } else if ($site->field_cloud[LANGUAGE_NONE][0]['value']) {
+    // This is a cloud site, send it wherever it wants to go, defaulting to envs.
+    purl_goto('mysites/envs', array('purl' => array('provider' => 'northstar_sites', 'id' => $site_id)));
+  } else {
+    // Check to make sure there isn't a redirect to a cloud path.
+    $cloud_paths = array(
+      'mysites/envs',
+      'mysites/servers',
+      'settings/ssl',
+      'settings/drush',
+      'settings/databases',
+    );
+    $path = 'mysites/insight';
+    
+    $options = array('purl' => array('provider' => 'northstar_sites', 'id' => $site_id));
+    if (isset($_GET['destination']) && in_array($_GET['destination'], $cloud_paths)) {
+      // If were in site settings, keep that context.
+      if (strpos($_GET['destination'], 'settings') !== FALSE) {
+        $path = 'settings/users';
+      }
+      // Don't redirect to the cloud path, it'll cause a 403 and redirect elsewhere.
+      unset($_GET['destination']);
+    }
+
+    purl_goto($path, $options);
+  }
+
+  drupal_goto('site-list');
+}
+
+/**
+ * Implements hook_provider().
+ */
+function northstar_purl_provider() {
+  return array(
+    'northstar_sites' => array(
+      'name' => t('Sites'),
+      'description' => t('Sets site context'),
+      'callback' => 'northstar_site',
+      'example' => '1029321',
+    ),
+  );
+}
+
+/**
+ * Set current site nid
+ *
+ * @param string $nid
+ */
+function northstar_site($id) {
+  global $user;
+  $user->data['nid'] = $id;
+  user_save($user);
+}
+
+/**
+ * Implements hook_url_outbound_alter().
+ */
+function northstar_url_outbound_alter(&$path, &$options, $original_path) {
+  // Never keep context on site-list page
+  if ($original_path == 'mysites') {
+    $options['purl']['disabled'] = TRUE;
+  }
+
+  // Site select changes context
+  if (strpos($original_path, 'mysites/select') !== FALSE) {
+    $options['purl']['disabled'] = TRUE;
+  }
+
+  if (strpos($original_path, 'admin') === 0) {
+    $options['purl']['disabled'] = TRUE;
+  }
+
+  if (strpos($original_path, 'dashboard') !== FALSE) {
+    $options['purl']['disabled'] = TRUE;
+  }
+
+  if ($original_path == 'settings' && arg(0) == 'settings' && isset($_GET['site'])) {
+    #dsm($original_path, $path);
+    $path = 'mysites/select/'.$_GET['site'];
+  }
+  if (strpos($original_path, 'dashboard/add') !== FALSE) {
+    $options['query'] += drupal_get_destination();
+  }
+}
+
+function northstar_forms($form_id, $args) {
+  $forms = array();
+  
+  $basic_forms = array(
+    'northstar_update_code',
+    'northstar_toggle_live_dev',
+    'northstar_import_site',
+    'northstar_install_site',
+    'northstar_update_content',
+    'northstar_dashboard_add_widget',
+    'northstar_backup_db',
+  );
+  
+  foreach($basic_forms as $form_name) {
+    $forms[$form_name] = array(
+      'callback' => $form_name.'_form',
+      'wrapper_callback' => 'northstar_basic_form_wrapper',
+    );
+  }
+  
+  return $forms;
+}
+
+function northstar_basic_form_wrapper($form, $form_state) {
+  $d = drupal_get_destination();
+  $form['title'] = array(
+    '#markup' => 'This is the default form title',
+    '#prefix' => '<h1 class="form-title">',
+    '#suffix' => '</h1>',
+  );
+  
+  $form['body'] = array(
+    '#markup' => 'This is the body text for this form',
+    '#prefix' => '<p>',
+    '#suffix' => '</p>',
+  );
+  
+  $form['actions'] = array(
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => 'Submit',
+    ),
+    '#prefix' => '<div>',
+    '#suffix' => '</div>',
+  );
+  
+  $form['back'] = array(
+    '#markup' => l('back', $d['destination'], array('attributes' => array('class' => array('back-link')))),
+  );
+  
+  $form['#attributes']['class'][] = 'northstar-basic-form';
+  
+  return $form;
+}
+
+function northstar_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form_state['wrapper_callback']) && $form_state['wrapper_callback'] == 'northstar_basic_form_wrapper') {
+    $count = count(element_children($form));
+    $form['actions']['#weight'] = $count + 10;
+    $form['title']['#weight'] = -1*$count - 10;
+    $form['back']['#weight'] = -1*$count - 15;
+  }
+}

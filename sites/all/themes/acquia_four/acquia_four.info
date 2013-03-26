@@ -1,0 +1,17 @@
+name = Acquia Four
+description = This theme is the clickable northstar for Acquia's network and cloud services
+core = 7.x
+stylesheets[all][] = global.css
+
+regions[header] = Header
+regions[help] = Help
+regions[page_top] = Page top
+regions[page_bottom] = Page bottom
+
+regions[tabs_left] = Left tabs
+regions[tabs_right] = Right tabs
+regions[content] = Content
+regions[sidebar_left] = Sidebar left
+regions[sidebar_right] = Sidebar right
+
+regions[footer] = Footer

@@ -1,0 +1,25 @@
+name = Acquia Network Transitory
+description = This is a transitory theme that shows the interim step between current AN and Swiss
+core = 7.x
+stylesheets[all][] = global.css
+
+regions[branding] = Branding
+regions[header_left] = Header left
+regions[header_right] = Header right
+
+regions[help] = Help
+
+regions[page_top] = Page top
+regions[page_bottom] = Page bottom
+
+regions[titlebar_left] = Title bar left
+regions[titlebar_right] = Title bar right
+
+regions[tabs] = Tabs
+regions[content_fixed] = Content fixed
+regions[content] = Content
+regions[sidebar_left] = Sidebar left
+regions[sidebar_right] = Sidebar right
+
+regions[footer_left] = Footer left
+regions[footer_right] = Footer right
