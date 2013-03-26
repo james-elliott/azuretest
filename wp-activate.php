@@ -46,7 +46,7 @@ function wpmu_activate_stylesheet() {
 		#submit, #key { width: 90%; font-size: 24px; }
 		#language { margin-top: .5em; }
 		.error { background: #f66; }
-		span.h3 { padding: 0 8px; font-size: 1.1em; font-family: "Lucida Grande", Verdana, Arial, "Bitstream Vera Sans", sans-serif; font-weight: bold; color: #333; }
+		span.h3 { padding: 0 8px; font-size: 1.3em; font-family: "Lucida Grande", Verdana, Arial, "Bitstream Vera Sans", sans-serif; font-weight: bold; color: #333; }
 	</style>
 	<?php
 }
