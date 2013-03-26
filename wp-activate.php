@@ -48,6 +48,7 @@ function wpmu_activate_stylesheet() {
 		.error { background: #f66; }
 		span.h3 { padding: 0 8px; font-size: 1.3em; font-family: "Lucida Grande", Verdana, Arial, "Bitstream Vera Sans", sans-serif; font-weight: bold; color: #333; }
 	</style>
+What????
 	<?php
 }
 add_action( 'wp_head', 'wpmu_activate_stylesheet' );
