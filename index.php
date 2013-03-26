@@ -1,17 +1,21 @@
 <?php
+
 /**
- * Front to the WordPress application. This file doesn't do anything, but loads
- * wp-blog-header.php which does and tells WordPress to load the theme.
+ * @file
+ * The PHP page that serves all page requests on a Drupal installation.
  *
- * @package WordPress
+ * The routines here dispatch control to the appropriate handler, which then
+ * prints the appropriate page.
+ *
+ * All Drupal code is released under the GNU General Public License.
+ * See COPYRIGHT.txt and LICENSE.txt.
  */
 
 /**
- * Tells WordPress to load the WordPress theme and output it.
- *
- * @var bool
+ * Root directory of Drupal installation.
  */
-define('WP_USE_THEMES', true);
+define('DRUPAL_ROOT', getcwd());
 
-/** Loads the WordPress Environment and Template */
-require('./wp-blog-header.php');
+require_once DRUPAL_ROOT . '/includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+menu_execute_active_handler();
